@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Title</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+    <script src="https://use.typekit.net/cua2obb.js"></script>
+    <script>
+        try{Typekit.load();}catch(e){}
+    </script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+</head>
+<body>
+
+    <h1>Instagram Video Downloader</h1>
+
+    <form action="{{ url_for('get_post') }}" method="post" autocomplete="off">
+        <input autocomplete="false" name="hidden" type="text" style="display:none;">
+    <div id="search-bar" class="search-bar">
+            <input type="text" name="url" autocomplete="false"/>
+            <div id="close" class="toggle"></div>
+    </div>
+    </form>
+
+    {% if found %}
+        {% if video != 'Not found' %}
+            <script>
+                window.location.href = "{{ video }}"+"&dl=1";
+                window.setTimeout(redr,1000);
+                function redr() {
+                   window.location.href = "/";
+                }
+            </script>
+        {% else %}
+            <div class='error' style='display:none'>Video not found!</div>
+            <script>
+                $('.error').fadeIn(400).delay(3000).fadeOut(400);
+            </script>
+        {% endif %}
+    {% endif %}
+
+
+    <script >
+      $('#close').click(function(){
+            $(this).parent().toggleClass('closed');
+            $(this).prev().focus();
+        });
+
+        setTimeout(function() {
+            $('#close').click();
+        }, 100);
+
+        setTimeout(function() {
+            $('#close').click();
+        }, 1500);
+      //# sourceURL=pen.js
+    </script>
+</body>
+</html>
